@@ -25,24 +25,24 @@ class TicTacToe:
         position = raw_input('Enter position (row # column #) : ')
         while position != 'q':
             position_to_move = tuple(position.replace(' ', ''))
-            helper.board[int(position_to_move[0]), int(position_to_move[1])] = "X"
-            self.print_board(helper)
-            if self.check_win_condition('X', helper):
-                print 'You win!'
-                position = 'q'
-                break
-            if len(helper.get_current_positions('X')) + len(helper.get_current_positions('O')) == 9:
-                print "It's a tie!"
-                break
-            print '\n... Computer is thinking ...\n'
-            time.sleep(1)
-            enemy.ai(helper)
-            self.print_board(helper)
-            if self.check_win_condition('O', helper):
-                print 'Computer Wins!'
-                break
-            position = raw_input('Enter position : ')
-             
+            if helper.check_basic_validations(position_to_move):
+                helper.board[int(position_to_move[0]), int(position_to_move[1])] = "X"
+                self.print_board(helper)
+                if self.check_win_condition('X', helper):
+                    print 'You win!'
+                    position = 'q'
+                    break
+                if len(helper.get_current_positions('X')) + len(helper.get_current_positions('O')) == 9:
+                    print "It's a tie!"
+                    break
+                print '\n... Computer is thinking ...\n'
+                time.sleep(1)
+                enemy.ai(helper)
+                self.print_board(helper)
+                if self.check_win_condition('O', helper):
+                    print 'Computer Wins!'
+                    break
+            position = raw_input('Enter position : ')        
         
 if __name__ == "__main__":
     ticTacToe = TicTacToe()

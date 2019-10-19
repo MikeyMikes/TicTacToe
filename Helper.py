@@ -39,5 +39,18 @@ class Helper:
     def get_current_positions(self, symbol):
         result = np.where(self.board == symbol)
         return map(self.convert_coordinates_to_integer, np.array(zip(result[0], result[1])))
+    
+    def check_basic_validations(self, position_to_move):
+        is_valid = True
+        if len(position_to_move) != 2:
+            print 'Please give row number followed by column number'
+            is_valid = False
+        elif int(position_to_move[0]) > 2 or int(position_to_move[0]) < 0 or \
+           int(position_to_move[1]) > 2 or int(position_to_move[1]) < 0:
+               print 'Row and column number must be between 0 and 2'
+               is_valid = False
+            
+        return is_valid
+               
 
 
