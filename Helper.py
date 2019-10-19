@@ -1,17 +1,17 @@
 import numpy as np
 
 class Helper:
-    playerPositions = []
-    computerPositions = []
-    computerSelectedPath = []
-    pathIndex = 0
-    pathFound = False
+    player_positions = []
+    computer_positions = []
+    computer_selected_path = []
+    path_index = 0
+    path_found = False
     
     board = np.array([["_","_","_"],
                       ["_","_","_"],
                       ["_","_","_"]])
     
-    winConditions = np.array([[0, 3, 6],
+    win_conditions = np.array([[0, 3, 6],
                               [3, 4, 5],
                               [6, 7, 8],
                               [0, 1, 2],
@@ -20,7 +20,7 @@ class Helper:
                               [0, 4, 8],
                               [2, 4, 6]])
     
-    def getCoordinateIntegerMapping(self):
+    def get_coordinate_integer_mapping(self):
         possibleCoordinates = [[0,0], [0,1], [0,2], [1,0], [1,1], [1,2], [2,0], [2,1], [2,2]]
         d = {}
         for i,x in enumerate(possibleCoordinates):
@@ -28,16 +28,16 @@ class Helper:
             
         return d
     
-    def convertCoordinatesToInteger(self, arr):
-        return self.getCoordinateIntegerMapping()[''.join(str(arr).replace('[', '').replace(']', '').replace(',', ''))]
+    def convert_coordinates_to_integer(self, arr):
+        return self.get_coordinate_integer_mapping()[''.join(str(arr).replace('[', '').replace(']', '').replace(',', ''))]
     
-    def convertIntegerToCoordinates(self, num):
-        for k,v in self.getCoordinateIntegerMapping().items():
+    def convert_integer_to_coordinates(self, num):
+        for k,v in self.get_coordinate_integer_mapping().items():
             if v == num:
                 return k
     
-    def getCurrentPositions(self, symbol):
+    def get_current_positions(self, symbol):
         result = np.where(self.board == symbol)
-        return map(self.convertCoordinatesToInteger, np.array(zip(result[0], result[1])))
+        return map(self.convert_coordinates_to_integer, np.array(zip(result[0], result[1])))
 
 

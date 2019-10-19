@@ -5,40 +5,40 @@ import time
 
 class TicTacToe:
    
-    def printBoard(self, helper):
+    def print_board(self, helper):
         print '\n'.join(' '.join(str(cell) for cell in row ) for row in helper.board)
     
-    def checkWinCondition(self, symbol, helper):
-        playerWon = False
+    def check_win_condition(self, symbol, helper):
+        player_won = False
         result = np.where(helper.board == symbol)
-        helper.playerPositions = map(helper.convertCoordinatesToInteger, np.array(zip(result[0], result[1])))
-        for condition in helper.winConditions:
-            if(all(elem in helper.playerPositions for elem in condition)):
-                playerWon = True
+        helper.player_positions = map(helper.convert_coordinates_to_integer, np.array(zip(result[0], result[1])))
+        for condition in helper.win_conditions:
+            if(all(elem in helper.player_positions for elem in condition)):
+                player_won = True
         
-        return playerWon
+        return player_won
         
     def main(self):
         enemy = Enemy()
         helper = Helper()
-        self.printBoard(helper)
+        self.print_board(helper)
         position = raw_input('Enter position : ')
         while position != 'q':
-            positionToMove = tuple(position)
-            helper.board[int(positionToMove[0]), int(positionToMove[1])] = "X"
-            self.printBoard(helper)
-            if self.checkWinCondition('X', helper):
+            position_to_move = tuple(position)
+            helper.board[int(position_to_move[0]), int(position_to_move[1])] = "X"
+            self.print_board(helper)
+            if self.check_win_condition('X', helper):
                 print 'You win!'
                 position = 'q'
                 break
-            if len(helper.getCurrentPositions('X')) + len(helper.getCurrentPositions('O')) == 9:
+            if len(helper.get_current_positions('X')) + len(helper.get_current_positions('O')) == 9:
                 print "It's a tie!"
                 break
             print '\n... Computer is thinking ...\n'
             time.sleep(1)
             enemy.ai(helper)
-            self.printBoard(helper)
-            if self.checkWinCondition('O', helper):
+            self.print_board(helper)
+            if self.check_win_condition('O', helper):
                 print 'Computer Wins!'
                 break
             position = raw_input('Enter position : ')
