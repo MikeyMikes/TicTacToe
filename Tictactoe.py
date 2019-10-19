@@ -22,9 +22,9 @@ class TicTacToe:
         enemy = Enemy()
         helper = Helper()
         self.print_board(helper)
-        position = raw_input('Enter position : ')
+        position = raw_input('Enter position (row # column #) : ')
         while position != 'q':
-            position_to_move = tuple(position)
+            position_to_move = tuple(position.replace(' ', ''))
             helper.board[int(position_to_move[0]), int(position_to_move[1])] = "X"
             self.print_board(helper)
             if self.check_win_condition('X', helper):
