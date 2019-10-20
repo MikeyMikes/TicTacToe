@@ -38,11 +38,25 @@ class Enemy:
         if(any(elem in helper.player_positions for elem in helper.computer_selected_path)):
                 helper.path_found = False
                 helper.path_index = 0
-        while not helper.path_found:
-            helper.computer_selected_path = helper.win_conditions[random.randint(0, 7)]
-            if(not any(elem in helper.player_positions for elem in helper.computer_selected_path)):
-                helper.path_found = True  
-        row = int(helper.convert_integer_to_coordinates(helper.computer_selected_path[helper.path_index])[:1])
-        column = int(helper.convert_integer_to_coordinates(helper.computer_selected_path[helper.path_index])[2:3])
-        helper.board[row, column] = 'O'
-        helper.path_index += 1
+        helper.win_conditions = list(helper.win_conditions)
+        random.shuffle(helper.win_conditions)
+        random.shuffle(helper.win_conditions)
+        if not helper.path_found:
+            for condition in helper.win_conditions:
+                if not any(elem in helper.player_positions for elem in condition):
+                    helper.path_found = True
+                    helper.computer_selected_path = condition
+        if helper.path_found:
+            row = int(helper.convert_integer_to_coordinates(helper.computer_selected_path[helper.path_index])[:1])
+            column = int(helper.convert_integer_to_coordinates(helper.computer_selected_path[helper.path_index])[2:3])
+            helper.board[row, column] = 'O'
+            helper.path_index += 1
+        else:
+            random_numbers = range(9)
+            random.shuffle(random_numbers)
+            for i in random_numbers:
+                if i not in helper.player_positions and i not in helper.computer_positions:
+                    row = int(helper.convert_integer_to_coordinates(i)[:1])
+                    column = int(helper.convert_integer_to_coordinates(i)[2:3])
+                    helper.board[row, column] = 'O'
+                    break
